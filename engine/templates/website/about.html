@@ -1,0 +1,31 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+
+<div class="columns">
+
+    <div class="column">
+        <div class="card">
+            <div class="card-header">
+                <div class="card-header-title">ABOUT {{ settings.site_name }}</div>
+            </div>
+            {% if settings.site_brand_image %}
+              <div class="card-image">
+                  <div class="level">
+                      <div class="level-item">
+                        <figure class="image">
+                            <img class="site-logo" src="{{ settings.site_brand_image.url }}" alt="{{ settings.site_name }}">
+                        </figure>
+                      </div>
+                  </div>
+              </div>
+              {% endif %}
+          <div class="card-content">
+             {{ settings.site_about|safe }}
+          </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

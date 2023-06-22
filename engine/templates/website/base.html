@@ -1,0 +1,123 @@
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{% block title %} {{ gsettings.site_name }} {% endblock %}</title>
+        <link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ STATIC_URL }}/site/css/style.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <style> 
+        {% block css %}
+
+            html{ background-color: {{ gsettings.site_accent_color }}; }
+            div.card-content * { color: {{ gsettings.site_fore_color }} }
+
+            {{ gsettings.override_css|safe }} 
+            {% block extracss %}{% endblock %}
+        {% endblock %}
+        </style>
+		<script>
+			document.addEventListener('DOMContentLoaded', function () {
+
+			  // Get all "navbar-burger" elements
+			  var $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+			  // Check if there are any navbar burgers
+			  if ($navbarBurgers.length > 0) {
+
+				// Add a click event on each of them
+				$navbarBurgers.forEach(function ($el) {
+				  $el.addEventListener('click', function () {
+
+					// Get the target from the "data-target" attribute
+					var target = $el.dataset.target;
+					var $target = document.getElementById(target);
+
+					// Toggle the class on both the "navbar-burger" and the "navbar-menu"
+					$el.classList.toggle('is-active');
+					$target.classList.toggle('is-active');
+
+				  });
+				});
+			  }
+
+			});
+		</script>
+    </head>
+
+    <body>
+
+        <section class="section">
+
+            <nav class="navbar is-fixed-top secondary-nav" role="navigation" aria-label="main navigation">
+                <div class="navbar-brand">
+                    <!-- navbar items, navbar burger... -->
+                    <a href="{% url 'home' %}" class="navbar-item">{{ gsettings.site_name }}</a>
+					<div class="navbar-burger" data-target="navMenu">
+					  <span></span>
+					  <span></span>
+					  <span></span>
+					</div>
+                </div>
+                <div class="navbar-menu" id="navMenu">
+
+			<!-- Default About Page -->
+                    <div class="navbar-item">
+                        <a href="{% url 'about' %}" class="navbar-item">ABOUT</a>
+		    </div>
+
+                    <div class="navbar-item has-dropdown is-hoverable">
+                      <a class="navbar-link">
+                        {{ gsettings.categories_title }}
+                      </a>
+
+                      <div class="navbar-dropdown is-boxed">
+                        <!-- Other navbar items -->
+                        {% for cat in categories %}
+                            {% if cat.on_main_menu %}
+                            <a href="{% url 'category' cat.id %}" class="navbar-item">{{ cat }}</a>
+								{% for ccat in cat.my_children.all %}
+									{% if ccat.on_menu %}
+									<a href="{% url 'category' ccat.id %}" class="navbar-item navbar-child">{{ ccat }}</a>
+									{% endif %}
+								{% endfor %}
+                            {% endif %}
+                        {% endfor %}
+                      </div>
+
+
+                    </div>
+                </div>
+
+                {% for cat in categories %}
+                    {% if cat.on_nav %}
+                    <div class="navbar-item">
+                        <a href="{% url 'category' cat.id %}" class="navbar-item ">*{{ cat }}</a>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+                {% for pg in cpages %}
+                    {% if pg.on_nav %}
+                    <div class="navbar-item">
+                        <a href="{% url 'page' pg.id %}" class="navbar-item ">
+                            
+                            {% if pg.page_icon %}
+                                <figure class="icon">
+                                    <img src="{{ pg.page_icon.url }}" /> &nbsp;
+                                </figure>
+                            {% endif %}
+
+                            {{ pg.title }}</a>
+                    </div>
+                    {% endif %}
+                {% endfor %}
+            </nav>
+        </section>
+
+        <section class="section">
+            <div class="container is-fluid">
+                {% block content %}{% endblock %}
+            </div>
+        </section>
+
+    </body>
+</html>

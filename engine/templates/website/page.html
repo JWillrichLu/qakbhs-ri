@@ -1,0 +1,35 @@
+{% extends "website/base.html" %}
+
+{% block content %}
+
+<div class="columns">
+
+    <div class="column">
+        <div class="card">
+          <div class="card-title xlg">
+                {% if page.page_icon %}
+                    <figure class="icon">
+                        <img src="{{ page.page_icon.url }}" alt="{{ page.title }}" /> &nbsp;
+                    </figure>
+                {% endif %}
+              {{ page.title|safe }}
+          </div>
+            {% if page.cover_image %}
+              <div class="card-image">
+                <figure class="image is-4by3">
+                    <img src="{{ page.cover_image.url }}" alt="{{ page.title }}">
+                </figure>
+              </div>
+              {% endif %}
+          <div class="card-content">
+             {{ page.content|safe }}
+          </div>
+          <div class="card-footer">
+              Explore more of &nbsp; <a href="{% url 'category' page.category.id %}" title="View other pages similar to this">{{ page.category }}</a>
+          </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css?family=Righteous');
+
+div.card.welcome {
+    margin-bottom: 10px;
+}
+
+div.card-content * {
+    font-family: 'Righteous', cursive;
+}
+
+div.card-footer  {
+    font-family: sans-serif;
+    padding: 5px;
+}
+div.card-title  {
+    font-family: 'Righteous', cursive;
+    font-size: large;
+    padding: 5px;
+}
+
+div.card-title.lg  {
+    font-size: x-large;
+}
+
+div.card-title.xlg  {
+    font-size: xx-large;
+}
+
+/* Social Icons */
+
+.social-icon {
+    margin: 0;
+    padding: 0;
+}
+
+.social-icon a {
+    height: 40px;
+	display: inline-flex;
+}
+
+.social-icon i.fa {
+    display: inline-block;
+    cursor: pointer;
+    margin-left: 10px;
+    padding: 4px 0;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    color: #959595;
+    overflow: hidden;
+    border-radius: 0;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    transition: all 0.5s;
+    -webkit-transform: translateZ(0);
+}
+
+.social-icon i.fa::before {
+    border-radius: 2px;
+    speak: none;
+    display: block;
+    -webkit-font-smoothing: antialiased;
+}
+
+.social-icon i.fa::before {
+    font-size: 14px;
+    line-height: 32px;
+}
+
+/* Header Contacts */
+.top-phone, .top-email {
+    color: #959595;
+    font-size: 13px;
+    padding-bottom: 7px;
+    padding-top: 7px;
+}
+
+.top-email a {
+    color: #959595;
+}
+
+.top-phone {
+    padding-right: 10px;
+}
+
+.secondary-nav {
+    top: 56 !important;
+}
+
+img.site-logo {
+	width: 50%;
+}
+
+.navbar-child {
+	margin-left: 15px !important;
+}
+
+.icon {
+    margin: .5rem;
+}
+
+.navbar.is-fixed-top {
+    top: 0 !important;
+}

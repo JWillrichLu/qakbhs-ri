@@ -1,0 +1,50 @@
+{% extends "website/base.html" %}
+{% load site_tags %}
+
+{% block title %} {{ title }} {% endblock %}
+
+{% block content %}
+
+{% with limit=gsettings.card_columns %}
+{% for page in pages %}
+
+{% if forloop.counter0|modulo0:limit %}
+<div class="columns">
+{% endif %}
+
+    <div class="column">
+        <div class="card">
+          <div class="card-title lg">
+                {% if page.page_icon %}
+                    <figure class="icon">
+                        <img src="{{ page.page_icon.url }}" alt="{{ page.title }}" /> &nbsp;
+                    </figure>
+                {% endif %}
+              {{ page.title|safe }}
+          </div>
+            {% if page.cover_image %}
+              <div class="card-image">
+                <figure class="image is-4by3">
+                    <img src="{{ page.cover_image.url }}" alt="{{ page.title }}">
+                </figure>
+              </div>
+              {% endif %}
+          <div class="card-content">
+              {{ page.description|safe }}
+          </div>
+          <div class="card-footer">
+              <a href="{% url 'page' page.id %}" class="card-footer-item">READ</a>
+          </div>
+        </div>
+    </div>
+
+{% if forloop.counter0|add:"1"|modulo0:limit %}
+    </div>
+{% endif %}
+
+{% endfor %}
+{% endwith %}
+
+</div>
+
+{% endblock %}
